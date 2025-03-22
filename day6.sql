@@ -1,54 +1,5 @@
 create database testingdb;
-
-create database testingdb;
-
-use testingdb;
-
- create table members (
-member_id int auto_increment,
-name varchar(100),
-
-primary key (member_id)
-);
-
-create table committees
-(
-committee_id int auto_increment,
-name varchar(100),
-primary key (committee_id)
-);
-
-select * from committees;
-
-insert into committees(name) values ('Jevaa'),('John'),('Pranesh'),('Joseph');
-
-drop table committees;
-select m.*,c.*
-from members m
-cross join committees c
-on m.name=c.name;
-
-
-create table employees(
-    employee_id int auto_increment primary key,
-    first_name varchar(255) not null,
-    last_name varchar(255) not null,
-    department varchar(100),
-    salary decimal(10, 2),
-    hire_date date
-);
-
-insert into employees (first_name, last_name, department, salary, hire_date) values
-('john', 'doe', 'sales', 50000.00, '2020-01-15'),
-('jane', 'smith', 'marketing', 60000.00, '2019-08-20'),
-('david', 'lee', 'engineering', 75000.00, '2021-03-10'),
-('sarah', 'jones', 'hr', 55000.00, '2020-11-05'),
-('michael', 'brown', 'finance', 70000.00, '2018-06-25'),
-('emily', 'davis', 'sales', 52000.00, '2022-02-01'),
-('kevin', 'wilson', 'marketing', 62000.00, '2021-09-18'),
-('jessica', 'garcia', 'engineering', 80000.00, '2019-12-03'),
-('brian', 'rodriguez', 'hr', 58000.00, '2020-07-12'),
-('ashley', 'martinez', 'finance', 72000.00, '2018-10-30');
+ 
 use testingdb;
 create  table members(
 member_id int auto_increment,
@@ -166,3 +117,52 @@ join departments d
 on e.department_id=d.department_id
 group by d.department_name;
 
+select * from employees;
+use firstdb;
+
+select * from employees limit 5 offset 3;
+
+desc employees;
+
+
+alter table employees
+add column department_name varchar(10);
+select * from employees;
+
+update employees
+set department_name ='IT'
+where employee_id=5;
+
+
+-- multiple column multiple row type 
+select employee_name as "Employee with maximum Salary", salary,department_name from employees
+ where (department_name,salary) in (select department_name,max(salary) from employees group by(department_name));
+ -- insert into employees(employee_id,department_name)
+--  values (6,'Admin');
+ 
+-- SELECT CONSTRAINT_NAME
+-- FROM information_schema.TABLE_CONSTRAINTS
+-- WHERE TABLE_SCHEMA = 'firstdb'
+--   AND TABLE_NAME = 'employees'
+--   AND CONSTRAINT_TYPE = 'PRIMARY KEY';
+  
+  
+ 
+ -- delete   from employees where employee_id=6;
+ 
+ -- single column multiple row type 
+ 
+ 
+ 
+ select department_name from employees
+ where department_name
+ not in
+    (select department_name from employees group by (department_name) having count(employee_name)>0);
+ 
+-- co-related Subquery
+select * from employees e1
+where e1.salary> (select avg(salary) from employees e2 where e1.department_name=e2.department_name);
+
+select department_name from employees
+where (select count(employee_name))=0;
+select 5 from employees where department_name = 'asdf';
