@@ -42,7 +42,7 @@ create table Inventory (
     foreign key (ProductID) references products(ProductID));
 
 --3. Create an ERD (Entity Relationship Diagram) for the database.
-
+--  NOTE : THE ER DIAGRAM IS UPLOADED AS A SEPERATE FILE UNDER THE SAME FOLDER KINDLY LOOK INTO IT
 
 --4. Insert at least 10 sample records into each of the following tables.Customers, Products, Orders, OrderDetails and Inventory.
 insert into Customers (FirstName, LastName, Email, Phone, Address) values
