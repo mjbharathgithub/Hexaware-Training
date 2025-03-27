@@ -11,10 +11,10 @@ JOIN products p ON od.ProductID = p.ProductID
 GROUP BY p.ProductName;
 
 -- 3. Write an SQL query to list all customers who have made at least one purchase. Include their names and contact information .
-select concat(c.FirstName,' ',c.LastName) Name, c.Phone
-from Customers c
-join Orders o
-on c.CustomerID=o.CustomerID;
+select concat(c.firstname,' ',c.lastname) Name, c.Email,c.Phone,c.Address,if(cGrp.count>0,'Purchased','Not Purchased') "Purchase status" 
+from customers c
+join (select count(customerid) count,customerid from orders group by customerid having count(customerid)>0) cGrp
+on c.customerid=cGrp.customerid;
 
 -- 4. Write an SQL query to find the most popular electronic gadget, which is the one with the highest total quantity ordered. Include the product name and the total quantity ordered.
 select p.ProductName, sum(od.Quantity) TotalQuantity
@@ -24,6 +24,15 @@ group by p.ProductName
 order by TotalQuantity desc
 limit 1;
 
+-- another solution using CTE, join and aggregate functions
+with prd_count as
+	(select od.productid prd_id,sum(od.quantity) sum_count from orderdetails od group by od.ProductID)
+    
+select p.productname name,prd_count.sum_count maxcount from products p
+join prd_count
+on p.productid=prd_count.prd_id
+where prd_count.sum_count=(select max(sum_count) from prd_count );
+
 -- 5. Write an SQL query to retrieve a list of electronic gadgets along with their corresponding categories.
  SELECT ProductName, Description AS Category FROM products;
 
@@ -32,6 +41,12 @@ limit 1;
 from customers c
 join orders o on c.CustomerID = o.CustomerID
 group by c.CustomerID;
+
+-- another solution using join and subquery 
+select concat(c.firstname,' ',c.lastname) Name, c.Email,c.Phone,c.Address,order_value.avg_order_value "Average Order value"
+from customers c
+join (select  o.customerid cus_id,avg(TotalAmount) avg_order_value from orders o group by customerid) order_value
+on c.customerid=order_value.cus_id;
 
 -- 7. Write an SQL query to find the order with the highest total revenue. Include the order ID, customer information, and the total revenue.
 select o.orderid,concat(c.firstName,' ',c.lastName) Name, c.email,c.phone,c.address,o.TotalAmount
