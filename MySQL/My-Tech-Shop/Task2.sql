@@ -17,15 +17,17 @@ update  Products set Price=Price+Price/10;
 -- 5.Write an SQL query to delete a specific order and its associated order details from the "Orders" and "OrderDetails" tables. Allow users to input the order ID as a parameter.
 select @@foreign_key_checks;
 set foreign_key_checks= 0;
-delete from orders where OrderID= @orderID;
-delete from orderdetails where OrderID= @orderID;
+delete from orders where OrderID= 1;
+delete from orderdetails where OrderID= 1;
 
 -- 6. Write an SQL query to insert a new order into the "Orders" table. Include the customer ID, order date, and any other necessary information.
-insert into Orders (CustomerID, TotalAmount) values (1, 92000.00);
+insert into orders(customerid,orderdate,totalamount) values(2,now(),40000);
 
 
 7-- . Write an SQL query to update the contact information (e.g., email and address) of a specific customer in the "Customers" table. Allow users to input the customer ID and new contact.
-update customers set Phone = '91-9426406429' where CustomerID=2;
+update customers
+set phone='91-9876543654' ,address='12, GM Road, Chennai, Tamil Nadu'
+where customerId=1;
 
 -- 8. Write an SQL query to recalculate and update the total cost of each order in the "Orders" table based on the prices and quantities in the "OrderDetails" table.
 update orders o
@@ -38,29 +40,24 @@ join (
 on o.OrderID = calculated_total.OrderID
 set o.TotalAmount = calculated_total.total;
 
--- 9. Write an SQL query to delete all orders and their associated order details for a specific
-customer from the "Orders" and "OrderDetails" tables. Allow users to input the customer ID
-as a parameter.
+-- 9. Write an SQL query to delete all orders and their associated order details for a specific customer from the "Orders" and "OrderDetails" tables. Allow users to input the customer ID as a parameter.
 delete od
 from orderdetails od
 join orders o on od.OrderID = o.OrderID
-where o.CustomerID = ?;
+where o.CustomerID = 1;
 
-delete from orders where CustomerID = ?;
+delete from orders where CustomerID = 1;
 
--- 10. Write an SQL query to insert a new electronic gadget product into the "Products" table,
-including product name, category, price, and any other relevant details.
-insert into products (ProductName, Description, Price) values (?, ?, ?);
+-- 10. Write an SQL query to insert a new electronic gadget product into the "Products" table,including product name, category, price, and any other relevant details.
+insert into products (ProductName, Description, Price) values ('Mouse', 'Wireless mouse', '4356.00');
 
--- 11. Write an SQL query to update the status of a specific order in the "Orders" table (e.g., from
-"Pending" to "Shipped"). Allow users to input the order ID and the new status.
+-- 11. Write an SQL query to update the status of a specific order in the "Orders" table (e.g., from "Pending" to "Shipped"). Allow users to input the order ID and the new status.
 alter table orders add column status enum('pending', 'shipped');
-update orders set Status = ? where OrderID = ?;
+update orders set Status = 1 where OrderID = 1;
 
 
--- 12. Write an SQL query to calculate and update the number of orders placed by each customer
-in the "Customers" table based on the data in the "Orders" table.
--- First, make sure Customers table has an OrderCount column
+-- 12. Write an SQL query to calculate and update the number of orders placed by each customer in the "Customers" table based on the data in the "Orders" table.
+
 alter table customers add column OrderCount int default 0;
 
 update customers c
