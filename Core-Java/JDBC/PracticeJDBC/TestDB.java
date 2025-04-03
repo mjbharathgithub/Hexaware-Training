@@ -229,5 +229,38 @@ public class TestDB {
 	}
 
 
+	public void multipleQuery_BatchProcessing() throws SQLException {
+		String query1,query2,query3,query4;
+		
+		query1="update employee set employeeage=31 where employeeId=1;";
+		query2="update employee set employeeage=222 where employeeId=2;";
+		query3="update employee set employeeage=300 where employeeId=3;";
+		query4="update employee set employeeage=400 where employeeId=4;";
+		
+		connect.setAutoCommit(false);
+		
+		Statement statement= connect.createStatement();
+		
+		
+		statement.addBatch(query1);
+		statement.addBatch(query2);
+		statement.addBatch(query3);
+		statement.addBatch(query4);
+		
+		int result[]=statement.executeBatch();
+		
+		for(int ele: result) {
+			if(ele<1) connect.rollback();
+			
+		}
+		
+		connect.commit();
+		
+		
+		System.out.println("Batches executed successfully\n");
+		
+		//this.retriveRecords();
+	}
+
 
 }
