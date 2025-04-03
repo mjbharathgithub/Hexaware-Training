@@ -17,12 +17,8 @@ public class TestDB {
 	}
 	static Scanner scanner=new Scanner(System.in);
  		void retriveRecords() throws SQLException {
-// 		String PASSWORD=System.getenv("DB_PASSWORD");
-//		String URL=System.getenv("DB_URL");
-//		String USER=System.getenv("DB_USER");
-//		String DB_NAME="firstdb";
-//	
-//		Connection connect= DriverManager.getConnection(URL+DB_NAME,USER,PASSWORD);
+
+ 			
 		Statement statment= connect.createStatement();
 		ResultSet resultSet= statment.executeQuery("select * from employee");
 		
@@ -45,13 +41,7 @@ public class TestDB {
 	}
  	
  	 void insertRecordWithoutPreparedStatement() throws SQLException {
- 		
-// 		String PASSWORD=System.getenv("DB_PASSWORD");
-//		String URL=System.getenv("DB_URL");
-//		String USER=System.getenv("DB_USER");
-//		String DB_NAME="firstdb";
-//	
-//		Connection connect= DriverManager.getConnection(URL+DB_NAME,USER,PASSWORD);
+
 		Statement statment= connect.createStatement();
 		int rows= statment.executeUpdate("insert into employee values (6,'Afsal',22,'Java Developer')");
 		
@@ -63,13 +53,8 @@ public class TestDB {
  	}
  	
  	 void insertRecord() throws SQLException {
- 		
-// 		String PASSWORD=System.getenv("DB_PASSWORD");
-//		String URL=System.getenv("DB_URL");
-//		String USER=System.getenv("DB_USER");
-//		String DB_NAME="firstdb";
-//	
-//		Connection connect= DriverManager.getConnection(URL+DB_NAME,USER,PASSWORD);
+
+
  		PreparedStatement preparedStatement= connect.prepareStatement("insert into employee values (?,?,?,?);");
  		
  		while(true) {
@@ -113,13 +98,8 @@ public class TestDB {
  	}
  	
 	 void deleteRecord() throws SQLException {
-	 		
-//			String PASSWORD=System.getenv("DB_PASSWORD");
-//			String URL=System.getenv("DB_URL");
-//			String USER=System.getenv("DB_USER");
-//			String DB_NAME="firstdb";
-//		
-//			Connection connect= DriverManager.getConnection(URL+DB_NAME,USER,PASSWORD);
+
+
 	 		PreparedStatement preparedStatement= connect.prepareStatement("delete from employee where employeeId=?;");
 	 		
 	 		while(true) {
@@ -143,13 +123,7 @@ public class TestDB {
 
 
 	public void updateRecord() throws SQLException {
-//			System.out.println("Update Domain by ID");
-//			String PASSWORD=System.getenv("DB_PASSWORD");
-//			String URL=System.getenv("DB_URL");
-//			String USER=System.getenv("DB_USER");
-//			String DB_NAME="firstdb";
-//		
-//			Connection connect= DriverManager.getConnection(URL+DB_NAME,USER,PASSWORD);
+
 			PreparedStatement preparedStatement= connect.prepareStatement("update employee set employeedomain=? where employeeId=?;");
 			
 			while(true) {
@@ -176,12 +150,7 @@ public class TestDB {
 		}
 
 		public  void techiesCall_SP() throws SQLException {
-//			String PASSWORD=System.getenv("DB_PASSWORD");
-//			String URL=System.getenv("DB_URL");
-//			String USER=System.getenv("DB_USER");
-//			String DB_NAME="firstdb";
-//		
-//			Connection connect= DriverManager.getConnection(URL+DB_NAME,USER,PASSWORD);
+			
 			CallableStatement callableStatement = connect.prepareCall("{call getTechiesName()}");
 			
 			ResultSet resultSet= callableStatement.executeQuery();
@@ -260,16 +229,5 @@ public class TestDB {
 	}
 
 
-//	public static void main(String[] args) throws SQLException {
-//		//insertRecord();
-//		//updateRecord();
-//		//retriveRecords();
-//		
-////		techiesCall_SP();
-//		TestDB db=new TestDB();
-////		db.techieCallById_SP();
-//		
-//		
-//	}
 
 }
