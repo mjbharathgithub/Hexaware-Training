@@ -141,8 +141,7 @@ public class TestDB {
 	 		
 	 	}
 
-//has this in update record
-//Exception in thread "main" com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Truncated incorrect DOUBLE value: 'DEVOPS'
+
 	public void updateRecord() throws SQLException {
 //			System.out.println("Update Domain by ID");
 //			String PASSWORD=System.getenv("DB_PASSWORD");
