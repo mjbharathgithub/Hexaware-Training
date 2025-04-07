@@ -8,6 +8,84 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.TreeSet;
 
+
+public class LearningCollections {
+
+	public static void main(String[] args) {
+		
+		// TODO Auto-generated method stub
+		
+//		Object arr[]= new Object[5];
+//		
+//		arr[0]=new Employee("Joseph",22);
+//		arr[1]=new Employee("Pranes",22);
+//		arr[2]=new Employee("Levi",22);
+//		arr[3]=new Employee("Jevaa",22);
+//		arr[4]=new Employee("Aadi",21);
+//		
+//		for(Object employee: arr) {
+//			System.out.println(employee.age+" "+employee.age);
+//		}
+		
+		List<Integer> linkedList= new LinkedList<>();
+		for(int i=0;i<=20;i+=2) {
+			linkedList.add(i);
+		}
+		
+		System.out.println("Enter the number of elements to print : ");
+		Scanner scanner = new Scanner(System.in);
+		int n=scanner.nextInt();
+		scanner.nextLine();
+		System.out.println(linkedList);
+		for(int i=0;i<n;i++) {
+		    System.out.print(linkedList.get(i)+" ");
+			
+		}
+		System.out.println();
+		Iterable<Integer> itr= linkedList;
+		Iterator<Integer> iterator=itr.iterator(); 
+		System.out.println(iterator);
+		
+		while(iterator.hasNext()) {
+			System.out.print(iterator.next()+ " ");
+		}
+
+		List<Student> list = new ArrayList<>();
+		String nameString="Name1";
+		for(int i=1;i<=30;i++) {
+			list.add(new Student(nameString,(int) Math.ceil(Math.random()*100),43));
+			nameString=nameString.substring(0,4)+i;
+		}
+		
+		for(Student student : list) {
+			System.out.println("Name : "+ student.name+" Marks : "+student.mark);	
+		}
+		
+		Student deleted=list.remove(0);
+		System.out.println("Deleted Student\n"+ deleted.name+" "+deleted.mark);
+		
+		list.add(new Student("NewStudent", 87,54));
+		System.out.println("After adding student : ");
+		list.forEach(student->System.out.println("Name : "+ student.name+" Marks : "+student.mark));
+		
+		System.out.println("Enter top N students : ");
+		n= scanner.nextInt();
+		scanner.nextLine();
+		
+		List<Student> topNStudents = list.stream()
+                .sorted(Comparator.comparingInt(Student::getMark).reversed()).limit(n).collect(Collectors.toList());
+		
+		System.out.println("Top "+n+" Students marks are : ");
+		
+		topNStudents.forEach(student->System.out.println("Name : "+ student.name+" Marks : "+student.mark));
+		
+		
+
+
+	
+	}
+}
+
 public class SetPractice {
 	
 	public static void main(String[] args) {
