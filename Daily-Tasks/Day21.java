@@ -9,6 +9,30 @@ import java.util.Scanner;
 import java.util.TreeSet;
 
 
+class Student implements Comparable<Student> {
+	public Student(String name, int mark ,int age) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.name=name;
+		this.mark=mark;
+		this.age=age;
+		
+	}
+	String name;
+	int mark, age;
+	
+	@Override
+	public int compareTo(Student o) {
+		// TODO Auto-generated method stub
+		return Integer.compare( this.mark,o.mark);
+		//return 0;
+	}
+	
+	public int getMark() {
+        return mark;
+    }
+}
+
 public class LearningCollections {
 
 	public static void main(String[] args) {
